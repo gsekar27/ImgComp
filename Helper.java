@@ -3,8 +3,6 @@ import java.util.HashMap;
 public class Helper {
 	private Cluster[] partition;
 	private HashMap<Vector, Integer> inputVectorCodeWordMappings;
-	
-
 	public Helper(int codeBookSize){
 		this.partition = new Cluster[codeBookSize];
 		for(int i = 0; i < codeBookSize; i++){
@@ -12,7 +10,6 @@ public class Helper {
 		}
 		this.inputVectorCodeWordMappings = new
 				HashMap<Vector, Integer>();
-		//this.avgDistortion = new double[codeBookSize];
 	}
 	
 	public void addToHelper(Vector vector, int index){
@@ -24,8 +21,7 @@ public class Helper {
 		return this.partition[index];
 	}
 	
-	public HashMap<Vector, Integer> getInputVectorMappings() {
-		
+	public HashMap<Vector, Integer> getInputVectorMappings() {		
 		return inputVectorCodeWordMappings;
 	}
 	
@@ -48,21 +44,15 @@ public class Helper {
 				if(avgDist != codebook.getAvgDistortion(i)){
 					codebook.setAvgDistortion(i,avgDist);
 					codebook.setCodeWord(i, avgOfCluster);
-					//if(avgDist > 0){
 						flag = false;
-					//}
-				}
-				
-					
+				}					
 			} else{
 				if((codeword.getX() + 4) < 255 && (codeword.getY()+4) < 255){
 					codebook.setCodeWord(i, new Vector(codeword.getX() + 4,codeword.getY()+4));
-				}
-				
+				}				
 			}
 		}
 		codebook.setCodewordFlag(flag);
-		//calculate the difference and see if it has to be initialized
 		return codebook;
 	}
 	
