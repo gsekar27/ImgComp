@@ -11,23 +11,16 @@ public class CompressImage {
 	private String fileName;
 	private boolean isColor;
 	
-	
 	public CompressImage(String[] args){
 		this.fileName = args[0];
 		this.sizeOfCodebook = Integer.parseInt(args[1]);	
-		this.isColor = fileName.substring(fileName.length() - 3).equals("rgb");
-		
-	}
-	
-	public static void main(String[] args) {
-		
+		this.isColor = fileName.substring(fileName.length() - 3).equals("rgb");		
+	}	
+	public static void main(String[] args) {		
 		if(args.length != 2){
 			System.out.println("Please provide the image file name and size of the codebook");
 			System.exit(0);
 		}
-		
-		
-		//long t = System.currentTimeMillis();
 		CompressImage compress = new CompressImage(args);
 		
 		if((compress.sizeOfCodebook & (compress.sizeOfCodebook  - 1)) != 0){
@@ -54,10 +47,6 @@ public class CompressImage {
 		
 		
 		System.out.println("Initialized codeword and cluster");
-		//inputclusterMapping.printStats(codebook);
-		
-		
-		
 		if(compress.sizeOfCodebook >= 64){
 			System.out.println("PLEASE WAIT FOR MORE THAN 1 MINUTE FOR THE DISPLAY of the compressed image, "
 					+ "as For larger size of codebook, the program takes time");
@@ -73,14 +62,9 @@ public class CompressImage {
 			inputclusterMapping = clusterize(inputclusterMapping,inputVectorArray,
 					codebook);			
 			cnt++;			
-		}
-		
-		//long et = System.currentTimeMillis();
-		//System.out.println("Generated for: " + (et - t)/1000 + " seconds");	
+		}	
 		System.out.println("Generated Codewords");
-		
-		//inputclusterMapping.printStats(codebook);
-		
+
 		//Make the output byte array		
 		Vector[] outputVectorArry = createOutputVector(inputVectorArray,
 				inputclusterMapping,codebook);
@@ -93,9 +77,9 @@ public class CompressImage {
 		DisplayImage display = new DisplayImage();
 		display.showImage(inputByteArray, outputByteArray,IMAGE_WIDTH, 
 				IMAGE_HEIGHT, compress.isColor);
-		//et = System.currentTimeMillis();
+		
 		System.out.println("Image Compressed Successfull");	
-		//System.out.println("Image Compressed Successfully");
+		
 	}
 
 	/**
@@ -163,8 +147,6 @@ public class CompressImage {
 		int deltaY= (int)Math.pow(Math.abs(vector1.getY() - vector2.getY()),2);
 		int deltaX = (int)Math.pow(Math.abs (vector1.getX() - vector2.getX()),2); 
 		int result  = deltaY+ deltaX;
-		//int result  = (int)Math.sqrt(deltaY+ deltaX);
-	    //System.out.println(result);
 	    return result;
 	}
 	
@@ -231,11 +213,9 @@ public class CompressImage {
 			is.close();
 			return bytes;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
